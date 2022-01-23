@@ -16,6 +16,7 @@ class MainWindow(WindowManager):
         WindowManager.__init__(self, "Face box", (800,600))
         self.mn_bar = self.build_menu_bar()
         self.file = Menu(self.mn_bar,"File")
+        new = Action(self.file,"New")
         quit = Action(self.file,"Quit")
         quit.clicked_event_handler = self.fn_quit
         self.edit = Menu(self.mn_bar,"Edit")
