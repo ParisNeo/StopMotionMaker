@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from urllib.request import urlopen
 
 import numpy as np
+import io
 
 # Initialize font
 pygame.font.init()
