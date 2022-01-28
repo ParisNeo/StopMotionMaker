@@ -6,7 +6,7 @@
 # ===================
 
 import pygame
-from pygame_helpers import Action, Button, HorizontalLayout, ImageBox, Slider, VerticalLayout, WindowManager, MenuBar, Menu, Timer
+from pygame_helpers import Action, List, Button, HorizontalLayout, ImageBox, MenuSeparator, Slider, Vertical, VerticalLayout, WindowManager, MenuBar, Menu, Timer
 from moviepy.editor import VideoFileClip
 
 # ===== Build pygame window and populate with widgets ===================
@@ -17,6 +17,7 @@ class MainWindow(WindowManager):
         self.mn_bar = self.build_menu_bar()
         self.file = Menu(self.mn_bar,"File")
         new = Action(self.file,"New")
+        sep = MenuSeparator(self.file)
         quit = Action(self.file,"Quit")
         quit.clicked_event_handler = self.fn_quit
         self.edit = Menu(self.mn_bar,"Edit")
@@ -29,7 +30,7 @@ class MainWindow(WindowManager):
         self.time_slider.value=0.5
         self.time_slider.valueChanged_callback = self.slider_updated
         self.time_slider.mouse_down_callback = self.slider_mouse_down
-        self.test_ui1 = Button("Zone 1")
+        self.test_ui1 = List(list=[f"item {i}" for i in range(100)])
         self.test_ui3 = Button("Hello 3")
 
         self.layout_1.addWidget(self.test_ui1,0.2)
@@ -60,6 +61,8 @@ class MainWindow(WindowManager):
             self.main_video.setImage(self.clip.get_frame(self.t))
             self.time_slider.setValue(self.t/self.clip.duration)
             self.t += 1/24
+            if self.t > self.clip.duration:
+                self.paused=True
 
     def fn_quit(self):
         self.Running=False
